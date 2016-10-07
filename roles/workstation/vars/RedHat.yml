@@ -1,0 +1,38 @@
+---
+workstation_pkgs:
+  - python3-ipython
+  - python3-devel
+  - python3-ipdb
+  - python-pip
+  - inotify-tools-devel
+  - workrave
+  - the_silver_searcher
+  - xsel
+  - pandoc
+  - ctags
+  - httrack
+  - keepassx
+  - redshift
+  - remmina
+  - vagrant
+  - gsmartcontrol
+  - pgadmin3
+  - gcc
+  - vagrant
+  - wireshark
+  - wireshark-gnome
+  - gitk
+  - libvirt-daemon-vbox
+  - dkms
+  - simple-mtpfs
+  # - lxc
+  # - lxc-extra
+  # - lxc-templates
+  # - x2goserver
+  # - urlview
+  # for virtualbox
+  # - RemoteBox
+  # - kernel-headers
+  # - kernel-devel
+
+dumpcap_path: /usr/sbin/dumpcap

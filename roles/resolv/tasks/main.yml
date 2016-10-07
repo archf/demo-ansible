@@ -1,0 +1,7 @@
+---
+# tasks file for resolv
+- name: "template resolv.conf"
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf owner=root group=root mode=0644
+  when: resolv_ns is defined
+  tags:
+    - resolv

@@ -1,0 +1,28 @@
+---
+
+- name: gather ansible_usergroups facts
+  usergroups:
+
+  # manage users for each usersgroups
+- include: users.yml
+  with_items: "{{usergroups}}"
+  loop_control:
+    loop_var: usergroup
+
+# # refresh facts in case new users are added
+# - include: ansible_usergroups_facts.yml
+
+- debug: var=ansible_usergroups
+  when: users_debug
+
+- debug: var=usergroup.key
+  with_dict: "{{ansible_usergroups}}"
+  when: users_debug and usergroup.key not in users_exclusive_usergroups_exceptions and usergroup.key not in usergroups|map(attribute='name')|list
+  loop_control:
+    loop_var: usergroup
+
+- include: groupdel.yml
+  with_dict: "{{ansible_usergroups}}"
+  when: users_exclusive_usergroups and usergroup.key not in users_exclusive_usergroups_exceptions and usergroup.key not in usergroups|map(attribute='name')|list
+  loop_control:
+    loop_var: usergroup

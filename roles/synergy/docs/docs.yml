@@ -1,0 +1,18 @@
+---
+github_account: archf
+requirements: |
+  Place your synergy package inside the `file` directory.
+  This role might not be the latest. Fork it 'n update if needed.
+
+description: |
+  The package is copied to `/opt/` on target host. It creates a synergy unix
+  group. You should then append your user to it.
+
+todos:
+  - put package outside of roles
+
+role_stack: |
+  This role was carefully selected to be part an ultimate deck of roles to manage
+  your infrastructure.
+
+  All roles' documentation is wrapped in this [convenient guide](http://127.0.0.1:8000/).

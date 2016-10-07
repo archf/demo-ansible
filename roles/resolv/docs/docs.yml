@@ -1,0 +1,14 @@
+---
+github_account: archf
+# requirements:
+description: |
+  You might not want to use this role depending on target device as it is often
+  a better practice to configure DNS settings through the network interfaces.
+
+todos: []
+
+role_stack: |
+  This role was carefully selected to be part an ultimate deck of roles to manage
+  your infrastructure.
+
+  All roles' documentation is wrapped in this [convenient guide](http://127.0.0.1:8000/).

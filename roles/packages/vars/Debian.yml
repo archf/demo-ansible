@@ -1,0 +1,29 @@
+---
+
+# List of packages to install by default on any debian family system.
+common_pkgs:
+  - tmux
+  - urlview
+  - mosh
+  - git
+  - vim-gtk3
+  - vim
+  - python3
+  - htop
+  - fakeroot
+  - tree
+  - openssh-server
+  - gdisk
+  - rsync
+  - lvm2
+  - libncurses5-dev
+  - libncurses5
+  - nmap
+  - linux-kernel-headers
+  - zsh
+  - ssh-askpass
+  - sshpass
+  - curl
+  - wget
+  - python-selinux
+  # - ntopng

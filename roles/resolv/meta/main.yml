@@ -1,0 +1,35 @@
+---
+galaxy_info:
+  author: Peter Hudec
+  description: A role to configure /etc/resolv.conf.
+  company: CNC, a.s.
+  license: BSD
+  min_ansible_version: 2.0
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: opensuse
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: SLES
+    versions:
+    - all
+  - name: GenericLinux
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+
+  galaxy_tags:
+    - systems
+    - dns
+
+dependencies: []

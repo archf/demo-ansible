@@ -1,0 +1,9 @@
+---
+# defaults file for resolv
+
+resolv_domain: ''
+
+resolv_search: []
+
+resolv_sortlist: []
+resolv_options: []

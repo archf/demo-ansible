@@ -1,0 +1,7 @@
+*.pyc
+*.vagrant
+.ropeproject
+.cache
+env/*
+tasks/mail_passwords.yml
+tasks/postfix.yml

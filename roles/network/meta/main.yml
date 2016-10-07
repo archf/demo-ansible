@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Felix Archambault
+  description: Configure network devices on a target host.
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+  - name: EL
+    versions:
+      - 6
+      - 7
+  - name: Fedora
+    versions:
+      - 20
+      - 21
+      - 22
+  - name: Ubuntu
+    versions:
+      - trusty
+
+  galaxy_tags:
+    - networking
+    - system
+
+dependencies: []

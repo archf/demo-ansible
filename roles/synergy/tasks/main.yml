@@ -1,0 +1,23 @@
+---
+
+# specify the packages and the packager to use
+# see the vars folder for a complete list
+- name: load OS specific variables (see ../vars/*)
+  include_vars: "{{ansible_os_family}}.yml"
+
+- name: copy the synergy package on the target machine
+  copy: src={{packages_dir}}/{{synergy_package}} dest=/opt/
+
+- name: install the synergy package
+  become: yes
+  action: "{{ansible_pkg_mgr}} pkg=/opt/{{synergy_package}}"
+
+- name: create a synergy group
+  group: name=synergy state=present
+
+- name: add synergy files to synergy group
+  file:
+    path: "{{item}}"
+    owner: root
+    group: synergy
+  with_items: synergy_paths

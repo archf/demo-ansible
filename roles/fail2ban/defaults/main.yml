@@ -1,0 +1,19 @@
+---
+# defaults file for fail2ban
+
+# service
+fail2ban_svc_state: started
+fail2ban_svc_enabled: yes
+
+fail2ban_pkg_state: latest
+
+# defaults
+fail2ban_jail_default:
+  bantime: 600
+  maxretry: 3
+
+# fail2ban_sshd
+fail2ban_jails:
+  - name: sshd
+    enabled: 'true'
+    maxretry: '5'

@@ -1,0 +1,7 @@
+tests/*
+tmp/*
+assets/*
+private/*
+filter_plugins/*.pyc
+.vagrant/*
+.ropeproject

@@ -1,0 +1,23 @@
+# {{ ansible_managed }}
+
+# unprivileged user network administration file
+
+# controls the limits which the program lxc-user-nic places on network
+# interfaces which an unprivileged user may create.
+
+# user type bridge number
+#
+#   user:   is the username to whom this entry applies.
+#
+#   type:   is the type of network interface being allowed.
+#   Only veth is currently supported.
+#
+#   bridge: is the bridge to which the network interfaces may
+#   be attached, for instance lxcbr0.
+#
+#   number: is the number of network interfaces of the given
+#   type which the given user may attach to the given bridge,
+#   for instance 2.
+
+@adm {{ lxc_network_type|default('veth') }} {{
+lxc_network_link|default('virbr0') }} {{ lxc_iface_max_per_user|default('24') }}

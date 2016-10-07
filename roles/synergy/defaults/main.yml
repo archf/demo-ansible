@@ -1,0 +1,13 @@
+---
+
+# An external directory containing the synergy packages.
+packages_dir: "{{ playbook_dir }}/private/packages"
+
+# A list of files inside the synergy package. This is used to adjust group
+# ownership and permissions.
+synergy_paths:
+  - /usr/bin/synergy
+  - /usr/bin/synergyd
+  - /usr/bin/synergyc
+  - /usr/bin/synergys
+  - /var/log/synergy.log

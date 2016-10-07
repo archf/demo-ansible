@@ -1,0 +1,10 @@
+---
+
+- include: bootstrap.yml
+
+- hosts: webserver
+  become: yes
+
+  roles:
+    - accounts
+    - common

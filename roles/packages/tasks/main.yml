@@ -1,0 +1,68 @@
+---
+
+- name: load OS specific variables (see ../vars/*)
+  include_vars: "{{ansible_os_family}}.yml"
+  when: ansible_distribution != "CentOS"
+
+- name: load Centos specific variables (see ../vars/*)
+  include_vars: "{{ansible_distribution}}.yml"
+  when: ansible_distribution == "CentOS"
+
+# - name: configure yum or dnf repository
+#   copy: src="{{ansible_os_family}}_{{item}}" dest="{{RedHat_repodest}}/{{item}}" owner=root group=root mode=0644
+#   with_items: "{{ansible_os_family ~ "_repolist"}}"
+#   when: (ansible_os_family == 'RedHat') and (item is defined)
+#   tags: repo
+
+# this task would attempt to install all available packages on ubuntu,
+# therefore to upgrade all installed packages, the apt module should be used
+# with upgrade=safe option
+- name: upgrade all packages
+  package: name=* state={{common_pkg_state}}
+  when: ansible_distribution != "OpenWrt" and ansible_os_family != "Debian"
+
+# fixme: adjust for rhel familiy
+- name: template grub
+  copy:
+    src: grub
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: 0644
+  notify: update grub
+  when:  ansible_os_family == 'Debian'
+
+- name: installing default packages
+  package: name={{common_pkgs}} state={{common_pkg_state}}
+  when: ansible_distribution != "OpenWrt"
+
+- name: installing default packages on an OpenWrt system
+  opkg: name={{item}} state=present update_cache=true
+  with_items: "{{common_pkgs}}"
+  when: ansible_distribution == "OpenWrt"
+
+  # rhel only
+  # requires package 'libselinux-python'
+- name: disable selinux on rhel
+  selinux: state={{selinux_state}}
+  when: ansible_distribution == "RedHat"
+
+- name: adding mounts to fstab
+  mount:
+    src: "{{item.dev}}"
+    name: "{{item.path}}"
+    fstype: "{{item.fstype}}"
+    state: "{{item.state|default('mounted')}}"
+    opts: "{{item.opts}}"
+    passno: "{{item.passno|default('2')}}"
+    dump: "{{item.dump|default('1')}}"
+  with_items: "{{mounts}}"
+  when: mounts is defined
+
+- name: adjust mountpoints group ownership
+  file:
+    path: "{{item.path}}"
+    group: "{{item.group}}"
+    state: directory
+  with_items: "{{mounts}}"
+  when: mounts is defined

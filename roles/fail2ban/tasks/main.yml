@@ -1,0 +1,24 @@
+---
+# tasks file for fail2ban
+
+- name: install fail2ban package
+  package: name=fail2ban state={{ fail2ban_pkg_state }}
+  tags: fail2ban
+
+- name: template jail2ban jail.local configuration file
+  template:
+    src: jail.local.j2
+    dest: /etc/fail2ban/jail.local
+    group: root
+    owner: root
+    mode: 0644
+    backup: yes
+  notify: restart_fail2ban
+  tags: fail2ban
+
+- name: start/stop fail2ban service
+  service:
+    name: fail2ban
+    state: '{{ fail2ban_svc_state }}'
+    enabled: '{{ fail2ban_svc_enabled }}'
+  tags: fail2ban

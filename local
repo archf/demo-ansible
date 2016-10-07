@@ -1,0 +1,22 @@
+# stub inventory
+# this is to run ansible on self
+#
+# groups are added for plays targeting groupes (i.e hosts != all)
+
+localhost ansible_ssh_host=localhost ansible_connection=local
+
+[gw]
+gw00 ansible_ssh_host=localhost ansible_connection=local
+
+[nas]
+nas00 ansible_ssh_host=localhost ansible_connection=local
+
+[workstations]
+localhost ansible_ssh_host=localhost ansible_connection=local
+
+# [lxchosts]
+# localhost ansible_ssh_host=localhost ansible_connection=local
+
+# [lxc:children]
+# workstations
+# lxchosts

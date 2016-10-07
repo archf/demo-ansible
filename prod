@@ -1,0 +1,59 @@
+# file: prod
+#
+# home production machines
+#
+ds00.lan ansible_ssh_user=archf
+
+[gw]
+gw00  ansible_ssh_host=10.0.0.1 ansible_ssh_port=22
+# gw00  ansible_ssh_host=192.168.2.145
+# gw01  ansible_ssh_host=10.0.0.2
+
+#ansible_ssh_port=22222
+
+[nas]
+nas00.lan ansible_ssh_user=archf
+
+[laptops]
+ltp00.lan ansible_ssh_user=archf
+
+# [wdesktops]
+# wde00.lan
+
+# [dockerservers]
+
+# [wikiservers]
+
+# [webservers]
+
+# [dbservers]
+
+# [gitservers]
+
+# [monitoringservers]
+
+# [web:children]
+# wikiservers
+# gitservers
+
+# v-devbox ansible_ssh_host=172.16.2.160
+
+# [vagrant-devstation]
+# v-devbox ansible_ssh_host=172.16.2.160
+
+# [vagrant-dns]
+# mdns
+# sdns
+
+# [masterdns:chilren]
+# mdns
+
+# [slavedns:chilren]
+# sdns
+
+# [cachedns:chilren]
+# cdns
+
+# # grouve variables
+# [vagrant-dns:vars]
+# ansibles_ssh_user=vagrant

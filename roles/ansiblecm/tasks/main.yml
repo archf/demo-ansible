@@ -1,0 +1,12 @@
+---
+
+#  fixme: add a depdendancy to python
+#  todo: create a python role?
+- name: install ansible
+  package: name=ansible state=latest
+
+- name: install python3 packages
+  package: name=python-pip state=latest
+
+- name: install ansible-playbook-debugger
+  pip: name=ansible-playbook-debugger

@@ -1,0 +1,42 @@
+[submodule "roles/fail2ban"]
+	path = roles/fail2ban
+	url = git@github.com:archf/ansible-fail2ban.git
+[submodule "roles/synergy"]
+	path = roles/synergy
+	url = git@github.com:archf/synergy.git
+[submodule "roles/resolv"]
+	path = roles/resolv
+	url = git@github.com:archf/ansible_resolv.git
+[submodule "roles/accounts"]
+	path = roles/accounts
+	url = git@github.com:archf/accounts.git
+[submodule "roles/workstation"]
+	path = roles/workstation
+	url = git@github.com:archf/workstation.git
+[submodule "roles/openssh-server"]
+	path = roles/openssh-server
+  url = git@github.com:archf/ansible-openssh-server.git
+[submodule "roles/samba"]
+	path = roles/samba
+	url = git@github.com:archf/ansible-samba.git
+[submodule "roles/lxc"]
+	path = roles/lxc
+	url = git@github.com:archf/ansible-lxc.git
+[submodule "roles/lxcm"]
+	path = roles/lxcm
+	url = git@github.com:archf/ansible-lxcm.git
+[submodule "roles/network"]
+	path = roles/network
+	url = git@github.com:archf/ansible-network.git
+[submodule "roles/ntpd"]
+	path = roles/ntpd
+	url = git@github.com:archf/ansible-ntpd.git
+[submodule "roles/packages"]
+	path = roles/packages
+	url = git@github.com:archf/ansible-packages.git
+[submodule "roles/common"]
+	path = roles/common
+	url = git@github.com:archf/ansible-common.git
+[submodule "roles/bootstrap"]
+	path = roles/bootstrap
+	url = git@github.com:archf/ansible-bootstrap.git

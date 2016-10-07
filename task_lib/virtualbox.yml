@@ -1,0 +1,11 @@
+---
+# special tasks when provisionning a virtualbox vm
+- name: append user to vboxsf group to enable vbox share automounting
+  become: yes
+  command: usermod -a -G vboxsf archf
+  when: ansible_virtualization_type == "virtualbox"
+
+# - name: add route to reach the lab network
+# lineinfile: dest=/etc/sysconfig/network-scripts backup=yes state=present regexp='^#PermitRootLogin' line='PermitRootLogin yes'
+#   command: ip route add 10.247.0.0/16 via {{ ansible_enp0s3.ipv4 }} dev {{ ansible_enp0s3.device }}
+#   # when:  ansible_virtualization_type == virtualbox

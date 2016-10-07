@@ -1,0 +1,12 @@
+---
+
+- include: bootstrap.yml
+
+- hosts: dbserver
+  become: yes
+
+  roles:
+    - accounts
+    - common
+    - packages
+    - workstation

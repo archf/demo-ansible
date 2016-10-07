@@ -1,0 +1,28 @@
+---
+github_account: archf
+requirements: |
+  You have to setup networking. Basically, you have the several options.
+
+    1. Use lxc-net service (on ubuntu)
+    2. Use libvirt `virbr0` bridge.
+    3. Create your own linux brigde.
+    4. Use an openvswitch bridge
+
+  It is not within the scope of this role to alter in any way your network stack. On the opposite, you must specify this role what network infrastructure to use.
+
+description: |
+  - install the packages (if on ubuntu will install the ppa).
+  - template lxc config files
+    - system wide files
+    - unprivileged users config file
+
+  After that, your are ready to spawn lxc containers. Check out my ansible-lxcm
+  ('m' for manager) role.
+
+todos: []
+role_stack: |
+
+  This role was carefully selected to be part an ultimate deck of roles to manage
+  your infrastructure.
+
+  All roles' documentation is wrapped in this [convenient guide](http://127.0.0.1:8000/).

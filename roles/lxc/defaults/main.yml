@@ -1,0 +1,59 @@
+---
+# defaults file for ansible-lxc
+
+lxc_pkg_state: installed
+
+private_dir: "{{ playbook_dir }}/private"
+
+# upriviledged users directory to create
+lxc_directories:
+  - '.local/share/lxc'
+  - '.local/share/lxcsnaps'
+  - '.cache/lxc'
+  - '.config/lxc'
+
+# container defaults (defaults.conf)
+# /etc/lxc/default.conf | ~/.config/lxc/default.conf
+lxc_network_type: veth
+lxc_network_link: lxcbr0
+lxc_network_bridge_type: bridge
+lxc_network_flags: up
+lxc_network_hwaddr: '00:16:3e:xx:xx:xx'
+lxc_network_ipv4_gateway: auto
+lxc_network_ipv6_gateway: auto
+
+# lxc.conf defaults
+# /etc/lxc/lxc.conf | ~/.config/lxc/lxc.conf
+
+# backend storage
+# lxc_bdev_lvm_vg: lxc
+# location in which all containers are stored
+# lxc_lxcpath: /var/lib/lxc
+# path to the default container configuration
+# lxc_default_config: /etc/lxc/default.conf ||  ~/.config/lxc/default.conf
+
+# lxc-net defaults
+# lxc_bridge_port: none
+
+# lxc_use_bridge: yes
+# lxc_bridge: lxcbr0
+# lxc_ipv4: 10.0.3.1/24
+# lxc_ipv6: fd4b:93da:8643:3046::1/64
+# lxc_ipv6_nat: yes
+
+# lxc_netmask: 255.255.255.0
+# lxc_network: 10.0.3.0/24
+#lxc_mtu: 1500
+
+# # if "none" no gateway will on the LXC bridge, nat must
+# # be "false" to use a gateway.
+# lxc_gateway: none
+
+# # lxc container nat enabled
+# lxc_nat: true  ## If "true" nat rules will be created with the lxc network.
+
+# lxc container dhcp settings
+lxc_dhcp_range: 10.0.3.2,10.0.3.253
+lxc_dhcp_max: 253
+lxc_dhcp_config: ''
+lxc_domain: 'lxc'

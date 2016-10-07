@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  author: Felix Archambault
+  description: A role to install and configure lxc on a host.
+  license: MIT
+  min_ansible_version: 1.8
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  - name: Fedora
+    versions:
+    - 22
+  - name: Ubuntu
+    versions:
+    - trusty
+    - utopic
+    - vivid
+
+  galaxy_tags:
+      - system
+      - lxc
+
+dependencies: []

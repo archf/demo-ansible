@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: Felix Archambault
+  description: A role to install and configure openssh-server on a target host.
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - 21
+        - 22
+  galaxy_tags:
+    - system
+    - networking
+
+dependencies: []

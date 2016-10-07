@@ -1,0 +1,90 @@
+---
+# tasks file for ansible-lxcm
+
+- name: register existing containers'name on target host
+  command: lxc-ls
+  register: lxcm_existing_containers
+  always_run: true
+
+- name: generate containers' inventory
+  add_host:
+    name: "{{item.name}}.{{lxcm_domain}}"
+    groups: "{{item.grp|default(lxcm_default_grp)}}"
+  with_items: "{{lxcm_containers}}"
+  when: lxcm_state != "absent"
+
+- name: generate containers' child group
+  add_host:
+    name: "{{item.0.name}}.{{lxcm_domain}}"
+    groups: "{{item.1}}"
+  with_nested:
+    - "{{lxcm_containers}}"
+    - "{{lxcm_child_grp}}"
+  when: lxcm_state != "absent"
+
+- name: create container (download image if unexisting)
+  lxc_container:
+    name: "{{item.name}}"
+    state: started
+    container_log: "{{item.container_log|default('false')}}"
+    container_log_level: "{{item.container_log_level|default('INFO')}}"
+    template: "{{item.template|default('ubuntu')}}"
+    template_options: "{{item.template_option|default('--release trusty')}}"
+  with_items: "{{lxcm_containers}}"
+  when: (lxcm_state != "absent") and (item.name not in lxcm_existing_containers.stdout)
+
+- include: wait_for_ports.yml
+
+- name: add users and install sudo command in each container
+  lxc_container:
+    name: "{{item.name}}"
+    state: started
+    container_command: |
+      for u in {{lxc_users|map(attribute='name')|list|join(' ')}}
+      do
+        {% if item.template is defined and item.template == 'centos' %}
+        useradd --groups adm,users,wheel --create-home $u
+        yum -y install sudo
+        echo "%wheel   ALL=(ALL)   NOPASSWD: ALL" >> /etc/sudoers.d/wheel
+        {% elif item.template is defined and item.template == 'fedora' %}
+        useradd --groups adm,users,wheel --create-home $u
+        dnf -y install sudo
+        echo "%wheel   ALL=(ALL)   NOPASSWD: ALL" >> /etc/sudoers.d/wheel
+        {% else %}
+        # no wheel on non rhel family
+        useradd --groups adm,users --create-home $u
+        {% endif %}
+      done
+  with_items: "{{lxcm_containers}}"
+  when: (lxcm_state != "absent") and (item.name not in lxcm_existing_containers.stdout)
+
+- name: inject public ssh key in each container for each "{{lxc_users}}"
+  lineinfile:
+    state: present
+    create: yes
+    line: "{{lookup('file', item.1.ssh_key)}}"
+    owner: "{{item.1.name}}"
+    group: "{{item.1.name}}"
+    dest: "{{lxcm_container_path|default('/var/lib/lxc/')}}/{{item.0.name}}/rootfs/home/{{item.1.name}}/.ssh/authorized_keys"
+  with_nested:
+    - "{{lxcm_containers}}"
+    - "{{lxc_users}}"
+  when: (lxcm_state != "absent") and (item.0.name not in lxcm_existing_containers.stdout)
+
+- name: apply lxc container(s) state
+  lxc_container:
+    name: "{{item.name}}"
+    state: "{{lxcm_state}}"
+  with_items: "{{lxcm_containers}}"
+  when: lxcm_state != "reloaded"
+
+- include: wait_for_ports.yml
+  when: (lxcm_state == "reloaded") or (lxcm_state != "stopped" and lxcm_state != "absent" and lxcm_state != "frozen" and lxcm_state != "reloaded" )
+
+# check if containers needs to be reprovisioned
+- name: set lxcm_provision (boolean)
+  set_fact:
+    lxcm_provision: true
+  when: (lxcm_state == "reloaded") or (lxcm_state != "stopped" and lxcm_state != "absent" and lxcm_state != "frozen" and lxcm_state != "reloaded" )
+  with_items: "{{lxcm_containers}}"
+  always_run: true

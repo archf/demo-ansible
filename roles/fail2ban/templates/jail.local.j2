@@ -1,0 +1,28 @@
+# file: jail.local
+# This configuration file overrides the settings in jail.conf
+
+# The DEFAULT allows a global definition of the options. They can be override
+# in each jail afterwards.
+
+[INCLUDES]
+
+#before = paths-distro.conf
+before = paths-{{ ansible_distribution|lower }}.conf
+
+[DEFAULT]
+
+{% for key, value in fail2ban_jail_default.iteritems() %}
+{{ key }} = {{ value }}
+{% endfor %}
+
+{% if fail2ban_jails is defined %}
+{% for jails in fail2ban_jails %}
+[{{ jails.name }}]
+{% for key, value in jails|dictsort %}
+{% if key|lower != "name" %}
+{{key}} = {{value}}
+{% endif %}
+{% endfor %}
+
+{% endfor %}
+{% endif %}
